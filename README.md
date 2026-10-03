@@ -1,4 +1,4 @@
-# Anonymous FSE 2027 replication package
+# Replication package
 
 This package supports the four RQs in **What Does Dependence-Closure Containment Cost? A Criterion for Code-Edit Contexts in Java Repositories**.
 The default command regenerates reported results from included measurements. It needs no model service,
