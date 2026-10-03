@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+
+
+ext.walaVersion = '1.6.10'
+
+repositories { mavenCentral() }
+
+dependencies {
+    implementation "com.ibm.wala:com.ibm.wala.core:${walaVersion}"
+    implementation "com.ibm.wala:com.ibm.wala.util:${walaVersion}"
+    implementation "com.ibm.wala:com.ibm.wala.shrike:${walaVersion}"
+    implementation 'com.google.code.gson:gson:2.11.0'
+}
+
+java {
+
+
+    toolchain { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+application { mainClass = 'lacuna.analyzer.Main' }
+
+jar {
+    manifest { attributes 'Main-Class': 'lacuna.analyzer.Main' }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    archiveFileName = 'lacuna-analyzer.jar'
+    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA', 'module-info.class'
+}

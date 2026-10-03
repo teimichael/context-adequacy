@@ -1,0 +1,7 @@
+*
+!java/
+!java/analyzer/
+!java/analyzer/build.gradle
+!java/analyzer/settings.gradle
+!java/analyzer/src/
+!java/analyzer/src/**

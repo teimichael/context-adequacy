@@ -1,0 +1,10 @@
+/.venv/
+/outputs/
+/data/instances*/
+/data/analysis*/
+/data/.lacuna*
+**/__pycache__/
+**/*.pyc
+**/.gradle/
+**/build/
+/dist/

@@ -1,0 +1,55 @@
+name: full
+description: "Reported Java criterion study: RQ1\u2013RQ4."
+seed: 20260916
+corpora:
+- multi-swe-bench
+properties:
+- P1
+- P2
+- P3
+budgets:
+- 8000
+- 32000
+- 128000
+builders:
+- target-only
+- lexical-bm25
+- dependence-1hop
+- closure-first
+approximations:
+- name: base
+- name: cg-0cfa
+  cg: 0-CFA
+- name: cg-no-cha
+  cha_augmented: false
+- name: depth-2
+  depth_cap: 2
+- name: depth-4
+  depth_cap: 4
+- name: frame-wide
+  frame: F2-bounded-wide
+- name: entry-tests
+  entry_points: +test-methods
+- name: entry-mains
+  entry_points: declared-mains
+- name: field-insensitive
+  field_sens: false
+- name: no-heap-edges
+  heap_model: none
+- name: no-realizability
+  realizable: false
+- name: no-summary-edges
+  summary_edges: false
+profile:
+  name: target
+  cpus_per_analysis: 4
+  parallel_slots: 3
+  memory_per_analysis_gb: 8
+  build_memory_gb: 6
+  reserved_host_gb: 8
+  analysis_timeout_s: 900
+  build_timeout_s: 2400
+measure_conformance: true
+crosscheck_k: 5
+results_dir: outputs/fresh
+data_dir: data

@@ -1,0 +1,20 @@
+verdict INADEQUATE
+  target   t = com.acme.query.ResultPage#hasMore()   ResultPage.java:14
+  property P1 = caller-behavior
+  approx   A  = { cg=RTA+CHA, field-sensitive, entry-points=all-public, heap=element-field-edges,
+                  frame=F1-narrow, depth-cap k=3, paths=realizable (two-phase), summary-edges=on;
+                  hard-wired: context-insensitive, reflection=unresolved->UNKNOWN;
+                  not emitted: data, control, exception }
+  frame(t)    = com.acme.query.ResultPage { .items, .limit, .offset, .totalCount }
+  depth    d  = 1
+
+  omitted  Omit(t,P1) =   by dist(seed, .), then identity
+    [1] dist=2  com.acme.analytics.StatsCollector#annotate(ResultPage,Backend)   StatsCollector.java:10
+    [2] dist=3  com.acme.analytics.StatsCollector.TOTAL_UNKNOWN   StatsCollector.java:4
+    [3] dist=3  com.acme.analytics.StatsCollector.sampling   StatsCollector.java:5
+    [4] dist=3  com.acme.query.Backend#count()   Backend.java:4
+
+  why [1]  (canonical chain, distance 2, all interior nodes in C)
+    frame field  com.acme.query.ResultPage.totalCount   declared ResultPage.java:5
+      <-heap-write-  com.acme.query.ResultPage#setTotalCount(int)   ResultPage.java:12
+      <-call-  com.acme.analytics.StatsCollector#annotate(ResultPage,Backend)   StatsCollector.java:10
